@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
- 
+
 #define maxlenght 255
-char buffer[maxlenght];   
- 
+char buffer[maxlenght];
+
 void write()
 {
     FILE *file1 = fopen("file1.txt","w");
-     
+
     for (int i = 0; i < 5;i++)
     {
         fgets(buffer, maxlenght,stdin);
@@ -25,13 +25,12 @@ void write()
     file1 = fopen("file1.txt","r");
     while ((fgets(buffer, maxlenght,file1)) != NULL)
     {
-        printf("%s",buffer);  
+        printf("%s",buffer);
     }
     rewind(file1);
     fclose(file1);
-     
 }
- 
+
 void copy_file()
 {
     FILE *file1 = fopen("file1.txt","r");
@@ -44,28 +43,31 @@ void copy_file()
             break;
         }
     }
-    while ((fgets(buffer, maxlenght, file1)) != NULL)
+    int k = 0;
+    while (k != 5)
     {
+        fgets(buffer, maxlenght + 1, file1);
         if(buffer[i] == 'a' || buffer[i] == 'A')
-        {   
-            fgets(buffer, maxlenght + 1, file1);
+        {
+
             fputs(buffer, file2);
         }
+        k++;
     }
     fclose(file2);
     file2 = fopen("file2.txt","r");
     while ((fgets(buffer, maxlenght,file2)) != NULL)
     {
-        printf("%s",buffer);  
+        printf("%s",buffer);
     }
     rewind(file2);
     fclose(file1);
- 
 }
+
 void word_count()
 {
     FILE *file2 = fopen("file2.txt","r");
-     
+
     int j = 0;
     while ((fgets(buffer, maxlenght,file2)) != NULL)
     {
@@ -84,21 +86,18 @@ void word_count()
                     k = 0;
                 }
             }
-        } 
+        }
     }
     printf("%d\n",j);
     fclose(file2);
 }
- 
- 
+
 int main()
 {
-         
     printf("write:\n");
     write();
     printf("\n***WITHUT LETTER 'A'***\n");
     copy_file();
     printf("\n***count lerrer***\n");
     word_count();
- 
 }
